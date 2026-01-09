@@ -1,14 +1,12 @@
 package com.myFirstProject.myFirstProject.Controller;
-
 import com.myFirstProject.myFirstProject.DTO.ProductRequestDto;
 import com.myFirstProject.myFirstProject.Service.OrderService;
 import com.myFirstProject.myFirstProject.Service.ProductService;
 import com.myFirstProject.myFirstProject.entity.Order;
-import com.myFirstProject.myFirstProject.entity.Products;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/admin")
@@ -30,4 +28,12 @@ ProductService productService;
     public List<Order> getAllOrders() {
         return orderService.getAllOrders();
     }
+
+    @DeleteMapping("/product/{id}")
+    public String deleteProduct(@PathVariable int id){
+
+        productService.deleteProduct(id);
+        return "Product Deleted SuccessFully";
+    }
+
 }

@@ -23,7 +23,7 @@ public class ProductController {
     public  String addProduct(@RequestBody Products p){
 
         System.out.println(p.toString());
-       // productService.insertProduct(p);
+
         return "Product inserted Succesfully";
     }
 

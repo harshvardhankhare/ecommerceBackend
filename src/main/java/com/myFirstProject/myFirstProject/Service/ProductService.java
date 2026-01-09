@@ -49,6 +49,10 @@ public class ProductService {
         return productRepository.findById(Id).orElseThrow(()-> new RuntimeException(" Product Not Found"));
     }
 
+public void deleteProduct(int Id){
+        Products product = productRepository.findById(Id).orElseThrow(()-> new RuntimeException("Product Not Found"));
+        productRepository.delete(product);
+}
 
     public List<Products> getSearchProduct(String q) {
 
