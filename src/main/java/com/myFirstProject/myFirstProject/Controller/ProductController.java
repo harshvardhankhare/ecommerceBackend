@@ -23,7 +23,6 @@ public class ProductController {
     public  String addProduct(@RequestBody Products p){
 
         System.out.println(p.toString());
-
         return "Product inserted Succesfully";
     }
 
@@ -43,5 +42,10 @@ public class ProductController {
             return productService.getSearchProduct(query);
         }
 
-
+          @DeleteMapping("/delete/{id}")
+    public String deleteProduct(@PathVariable int id){
+         productService.deleteProduct(id);
+              System.out.println(" #33333333333333 Delete product  #####################");
+        return "Product delete successfully";
+          }
 }
