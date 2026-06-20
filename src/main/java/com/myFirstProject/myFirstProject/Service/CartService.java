@@ -51,7 +51,7 @@ public class CartService {
             }
             int total =0;
             for(CartItem item : cart.getItems()){
-                total+= item.getProduct().getProduct_price() *item.getQuantity();
+                total+= item.getProduct().getPrice() *item.getQuantity();
             }
             cart.setTotalPrice(total);
             cartRepository.save(cart);
@@ -125,7 +125,7 @@ public class CartService {
     private void recalculateTotal(Cart cart) {
         int total = 0;
         for (CartItem item : cart.getItems()) {
-            total += item.getProduct().getProduct_price() * item.getQuantity();
+            total += item.getProduct().getPrice() * item.getQuantity();
         }
         cart.setTotalPrice(total);
     }
@@ -142,7 +142,7 @@ public class CartService {
         // recalculate total
         int total = 0;
         for (CartItem item : cart.getItems()) {
-            total += item.getProduct().getProduct_price() * item.getQuantity();
+            total += item.getProduct().getPrice() * item.getQuantity();
         }
         cart.setTotalPrice(total);
 

@@ -2,15 +2,37 @@ package com.myFirstProject.myFirstProject.DTO;
 
 import lombok.Data;
 
-import java.util.List;
 @Data
 public class ProductRequestDto {
-    private String name;
-    private String desc;
-    private Double price;
-    private String category;
-    private String slug;
-    private Integer discount;
+
+    private String title;
+    private String description;
     private String thumbnailImage;
-    private String imgUrls;
+
+    private String category;
+
+    private Double price;
+    private Double discountPercentage;
+
+    private Integer stock;
+
+    private String brand;
+    private String sku;
+
+    private String warrantyInformation;
+    private String shippingInformation;
+    private String availabilityStatus;
+    private String returnPolicy;
+
+    private String material;
+    private String careInstructions;
+
+    // JSON String
+    private String tags;
+
+    // JSON String
+    private String imageUrls;
+
+    // JSON String
+    private String keyFeatures;
 }

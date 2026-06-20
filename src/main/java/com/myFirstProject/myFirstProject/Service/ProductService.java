@@ -15,19 +15,39 @@ public class ProductService {
     @Autowired
     ProductRepository productRepository;
 
-    public  void insertProduct(ProductRequestDto pr){
+    public Products insertProduct(ProductRequestDto pr) {
+
         Products p = new Products();
-        p.setProduct_name(pr.getName());
-        p.setDiscount(pr.getDiscount());
+
+        p.setTitle(pr.getTitle());
+        p.setDescription(pr.getDescription());
+
         p.setCategory(pr.getCategory());
-        p.setProduct_price(pr.getPrice().intValue());
-        p.setSlug(pr.getSlug());
+
+        p.setPrice(pr.getPrice());
+        p.setDiscountPercentage(pr.getDiscountPercentage());
+
+        p.setStock(pr.getStock());
+
+        p.setBrand(pr.getBrand());
+        p.setSku(pr.getSku());
+
+        p.setWarrantyInformation(pr.getWarrantyInformation());
+        p.setShippingInformation(pr.getShippingInformation());
+        p.setAvailabilityStatus(pr.getAvailabilityStatus());
+        p.setReturnPolicy(pr.getReturnPolicy());
+
+        p.setMaterial(pr.getMaterial());
+        p.setCareInstructions(pr.getCareInstructions());
+
         p.setThumbnailImage(pr.getThumbnailImage());
-        p.setImageUrls(pr.getImgUrls());
-        p.setProduct_desc(pr.getDesc());
+
+        p.setTags(pr.getTags());
+        p.setImageUrls(pr.getImageUrls());
+        p.setKeyFeatures(pr.getKeyFeatures());
 
         productRepository.save(p);
-
+        return p;
     }
 
     public Optional<Products> getPrductById(Long id){
@@ -55,7 +75,7 @@ public void deleteProduct(Long Id){
 
     public List<Products> getSearchProduct(String q) {
 
-        return productRepository.searchByProductName(q);
+        return productRepository.searchByTitle(q);
     }
 
     public Products updateProduct(ProductRequestDto reqProduct, Long id) {
@@ -63,13 +83,32 @@ public void deleteProduct(Long Id){
         Products product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product Not Found"));
 
-        product.setProduct_name(reqProduct.getName());
-        product.setProduct_desc(reqProduct.getDesc());
-        product.setProduct_price(reqProduct.getPrice().intValue());
+        product.setTitle(reqProduct.getTitle());
+        product.setDescription(reqProduct.getDescription());
+
         product.setCategory(reqProduct.getCategory());
-        product.setDiscount(reqProduct.getDiscount());
+
+        product.setPrice(reqProduct.getPrice());
+        product.setDiscountPercentage(reqProduct.getDiscountPercentage());
+
+        product.setStock(reqProduct.getStock());
+
+        product.setBrand(reqProduct.getBrand());
+        product.setSku(reqProduct.getSku());
+
+        product.setWarrantyInformation(reqProduct.getWarrantyInformation());
+        product.setShippingInformation(reqProduct.getShippingInformation());
+        product.setAvailabilityStatus(reqProduct.getAvailabilityStatus());
+        product.setReturnPolicy(reqProduct.getReturnPolicy());
+
+        product.setMaterial(reqProduct.getMaterial());
+        product.setCareInstructions(reqProduct.getCareInstructions());
+
         product.setThumbnailImage(reqProduct.getThumbnailImage());
-        product.setImageUrls(reqProduct.getImgUrls());
+
+        product.setTags(reqProduct.getTags());
+        product.setImageUrls(reqProduct.getImageUrls());
+        product.setKeyFeatures(reqProduct.getKeyFeatures());
 
         return productRepository.save(product);
     }

@@ -13,7 +13,7 @@ public interface ProductRepository extends JpaRepository<Products,Long> {
     @Query("""
         SELECT p 
         FROM Products p 
-        WHERE LOWER(p.product_name) LIKE LOWER(CONCAT('%', :q, '%'))
+        WHERE LOWER(p.title) LIKE LOWER(CONCAT('%', :q, '%'))
     """)
-    List<Products> searchByProductName(@Param("q") String q);
+    List<Products> searchByTitle(@Param("q") String q);
 }

@@ -40,15 +40,5 @@ public class PublicController {
     public String test() {
         return "WORKING";
     }
-    @GetMapping("/count")
-    public Object count() {
-        Products p = productService.getAllProducts().get(0);
-
-        return Map.of(
-                "id", p.getProductId(),
-                "name", p.getProduct_name(),
-                "price", p.getProduct_price()
-        );
-    }
 
 }

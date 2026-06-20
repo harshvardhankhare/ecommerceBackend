@@ -13,14 +13,26 @@ public class Products {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
 
-    private String product_name;
-    private String product_desc;
-    private String slug;
-    private int product_price;
-    private String category;
+    private String title;
+    private String description;
     private String thumbnailImage;
-    private int discount;
+    private String category;
+    private Double price;
+    private Double discountPercentage;
+    private Integer stock;
+    private String brand;
+    private String sku;
+    private String warrantyInformation;
+    private String shippingInformation;
+    private String availabilityStatus;
+    private String returnPolicy;
+    private String material;
+    private String careInstructions;
+    @Column(columnDefinition = "TEXT")
+    private String tags;
     @Column(columnDefinition = "TEXT")
     private String imageUrls;
+    @Column(columnDefinition = "TEXT")
+    private String keyFeatures;
 
 }

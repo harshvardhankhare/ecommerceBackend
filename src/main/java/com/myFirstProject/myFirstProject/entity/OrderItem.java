@@ -23,7 +23,7 @@ public class OrderItem {
     private Long productId;
     private String productName;
     private String productImage;
-    private int productPrice;
+    private Double productPrice;
 
     private int quantity;
 }

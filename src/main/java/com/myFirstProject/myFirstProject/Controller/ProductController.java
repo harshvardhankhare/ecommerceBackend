@@ -20,7 +20,7 @@ public class ProductController {
     public  String addProduct(@RequestBody Products p){
 
         System.out.println(p.toString());
-        return "Product inserted Succesfully";
+        return "Product inserted Successfully";
     }
 
     @GetMapping("/product/{id}")

@@ -7,7 +7,10 @@ import com.myFirstProject.myFirstProject.Service.ProductService;
 import com.myFirstProject.myFirstProject.entity.Category;
 import com.myFirstProject.myFirstProject.entity.Order;
 import com.myFirstProject.myFirstProject.entity.Products;
+import com.myFirstProject.myFirstProject.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -22,9 +25,19 @@ private final OrderService orderService;
 private final CategoryService categoryService;
 
     @PostMapping("/add")
-    public String addProduct(@RequestBody ProductRequestDto pr){
-        productService.insertProduct(pr);
-        return "Product Inserted SuccessFully";
+    public ResponseEntity<ApiResponse<Products>> addProduct(
+            @RequestBody ProductRequestDto pr) {
+
+        Products product = productService.insertProduct(pr);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(
+                        new ApiResponse<>(
+                                true,
+                                "Product created successfully",
+                                product
+                        )
+                );
     }
 
     @GetMapping("/orders")
@@ -52,10 +65,19 @@ private final CategoryService categoryService;
         return "Category Deleted Successfully";
     }
     @PutMapping("/product/{id}")
-    public Products updateProduct(
+    public ResponseEntity<ApiResponse<Products>> updateProduct(
             @RequestBody ProductRequestDto reqProduct,
             @PathVariable Long id) {
 
-        return productService.updateProduct(reqProduct, id);
+        Products updatedProduct =
+                productService.updateProduct(reqProduct, id);
+
+        return ResponseEntity.ok(
+                new ApiResponse<>(
+                        true,
+                        "Product updated successfully",
+                        updatedProduct
+                )
+        );
     }
 }

@@ -50,9 +50,9 @@ public class OrderService {
             // INTERNAL relation only
             orderItem.setOrder(order);
             orderItem.setProductId(cartItem.getProduct().getProductId());
-            orderItem.setProductName(cartItem.getProduct().getProduct_name());
+            orderItem.setProductName(cartItem.getProduct().getTitle());
             orderItem.setProductImage(cartItem.getProduct().getThumbnailImage());
-            orderItem.setProductPrice(cartItem.getProduct().getProduct_price());
+            orderItem.setProductPrice(cartItem.getProduct().getPrice());
 
             orderItem.setQuantity(cartItem.getQuantity());
 
