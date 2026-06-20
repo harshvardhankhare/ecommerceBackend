@@ -57,7 +57,7 @@ public void deleteProduct(Long Id){
 
         return productRepository.searchByProductName(q);
     }
-    @PutMapping("/update/{id}")
+
     public Products updateProduct(ProductRequestDto reqProduct, Long id) {
 
         Products product = productRepository.findById(id)

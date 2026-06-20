@@ -6,6 +6,7 @@ import com.myFirstProject.myFirstProject.Service.OrderService;
 import com.myFirstProject.myFirstProject.Service.ProductService;
 import com.myFirstProject.myFirstProject.entity.Category;
 import com.myFirstProject.myFirstProject.entity.Order;
+import com.myFirstProject.myFirstProject.entity.Products;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -49,5 +50,12 @@ private final CategoryService categoryService;
 
         categoryService.deleteCategory(id);
         return "Category Deleted Successfully";
+    }
+    @PutMapping("/product/{id}")
+    public Products updateProduct(
+            @RequestBody ProductRequestDto reqProduct,
+            @PathVariable Long id) {
+
+        return productService.updateProduct(reqProduct, id);
     }
 }
