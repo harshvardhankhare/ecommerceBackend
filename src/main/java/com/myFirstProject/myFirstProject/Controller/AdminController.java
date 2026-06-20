@@ -32,7 +32,7 @@ private final CategoryService categoryService;
     }
 
     @DeleteMapping("/product/{id}")
-    public String deleteProduct(@PathVariable int id){
+    public String deleteProduct(@PathVariable Long id){
 
         productService.deleteProduct(id);
         return "Product Deleted SuccessFully";
