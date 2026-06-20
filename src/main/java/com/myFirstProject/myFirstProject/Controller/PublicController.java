@@ -22,6 +22,7 @@ public class PublicController {
 
     @GetMapping("/getAll")
     public Object getAllProducts(){
+
         try {
             return productService.getAllProducts();
         } catch (Exception e) {
@@ -37,6 +38,10 @@ public class PublicController {
     @GetMapping("/test")
     public String test() {
         return "WORKING";
+    }
+    @GetMapping("/count")
+    public long count() {
+        return productService.getAllProducts().size();
     }
 
 }
