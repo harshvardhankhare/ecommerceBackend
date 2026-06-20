@@ -21,8 +21,13 @@ public class PublicController {
 
 
     @GetMapping("/getAll")
-    public List<Products> getAllProducts(){
-        return productService.getAllProducts();
+    public Object getAllProducts(){
+        try {
+            return productService.getAllProducts();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
     }
 
     @GetMapping("/categories")
