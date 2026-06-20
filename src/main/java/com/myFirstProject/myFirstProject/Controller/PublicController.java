@@ -29,6 +29,9 @@ public class PublicController {
     public  List<Category> getAllCategories(){
         return categoryService.getAllCategories();
     }
-
+    @GetMapping("/test")
+    public String test() {
+        return "WORKING";
+    }
 
 }
