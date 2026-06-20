@@ -54,7 +54,7 @@ public class AuthController {
            newUser.setRole("USER");
          Users  x=   userRepository.save(newUser);
             userService.add(x);
-        return "User regsiterrd succesfully with role admin";
+        return "User registered successfully with role admin";
     }
 
 

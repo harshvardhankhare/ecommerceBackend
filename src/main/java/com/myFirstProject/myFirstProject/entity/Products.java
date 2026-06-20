@@ -2,6 +2,7 @@ package com.myFirstProject.myFirstProject.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,6 +18,9 @@ public class Products {
     private String slug;
     private int product_price;
     private String category;
-    private String imgLink;
+    private String thumbnailImage;
     private int discount;
+    @ElementCollection
+    private List<String> imgUrls;
+
 }

@@ -1,6 +1,4 @@
 package com.myFirstProject.myFirstProject.entity;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,7 +18,7 @@ public class CartItem {
 
     @ManyToOne
     @JoinColumn(name = "cart_id")
-    @JsonIgnore   // 🔥 THIS IS THE KEY FIX
+    @JsonIgnore
     private Cart cart;
 
     @ManyToOne

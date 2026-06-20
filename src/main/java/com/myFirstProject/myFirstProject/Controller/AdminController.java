@@ -1,22 +1,24 @@
 package com.myFirstProject.myFirstProject.Controller;
+import com.myFirstProject.myFirstProject.DTO.CategoryRequest;
 import com.myFirstProject.myFirstProject.DTO.ProductRequestDto;
+import com.myFirstProject.myFirstProject.Service.CategoryService;
 import com.myFirstProject.myFirstProject.Service.OrderService;
 import com.myFirstProject.myFirstProject.Service.ProductService;
+import com.myFirstProject.myFirstProject.entity.Category;
 import com.myFirstProject.myFirstProject.entity.Order;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
 @RestController
 @RequestMapping("/admin")
-
+@RequiredArgsConstructor
 public class AdminController {
 
-    @Autowired
-ProductService productService;
-    @Autowired
-    private OrderService orderService;
+private ProductService productService;
+private OrderService orderService;
+private CategoryService categoryService;
 
     @PostMapping("/add")
     public String addProduct(@RequestBody ProductRequestDto pr){
@@ -35,5 +37,17 @@ ProductService productService;
         productService.deleteProduct(id);
         return "Product Deleted SuccessFully";
     }
+    @PostMapping("/categories")
+    public Category createCategory(
+            @RequestBody CategoryRequest request) {
 
+        return categoryService.createCategory(request);
+    }
+
+    @DeleteMapping("/categories/{id}")
+    public String deleteCategory(@PathVariable Long id) {
+
+        categoryService.deleteCategory(id);
+        return "Category Deleted Successfully";
+    }
 }

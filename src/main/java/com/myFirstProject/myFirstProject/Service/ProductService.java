@@ -25,7 +25,8 @@ public class ProductService {
         p.setCategory(pr.getCategory());
         p.setProduct_price(pr.getPrice().intValue());
         p.setSlug(pr.getSlug());
-        p.setImgLink(pr.getImg());
+        p.setThumbnailImage(pr.getThumbnailImage());
+        p.setImgUrls(pr.getImgUrls());
         p.setProduct_desc(pr.getDesc());
 
         productRepository.save(p);
@@ -61,23 +62,20 @@ public void deleteProduct(int Id){
         return productRepository.searchByProductName(q);
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity<Products> updateProduct(
-            @RequestBody Products reqProduct,
-            @PathVariable int id) {
+    public Products updateProduct(ProductRequestDto reqProduct, int id) {
 
         Products product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product Not Found"));
 
-        product.setProduct_name(reqProduct.getProduct_name());
-        product.setProduct_desc(reqProduct.getProduct_desc());
-        product.setProduct_price(reqProduct.getProduct_price());
-        product.setImgLink(reqProduct.getImgLink());
+        product.setProduct_name(reqProduct.getName());
+        product.setProduct_desc(reqProduct.getDesc());
+        product.setProduct_price(reqProduct.getPrice().intValue());
         product.setCategory(reqProduct.getCategory());
         product.setDiscount(reqProduct.getDiscount());
+        product.setThumbnailImage(reqProduct.getThumbnailImage());
+        product.setImgUrls(reqProduct.getImgUrls());
 
-        Products updatedProduct = productRepository.save(product);
-
-        return ResponseEntity.ok(updatedProduct);
+        return productRepository.save(product);
     }
 
 
