@@ -20,7 +20,7 @@ public class Products {
     private String category;
     private String thumbnailImage;
     private int discount;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> imgUrls;
 
 }
