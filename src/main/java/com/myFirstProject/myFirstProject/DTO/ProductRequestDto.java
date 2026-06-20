@@ -12,5 +12,5 @@ public class ProductRequestDto {
     private String slug;
     private Integer discount;
     private String thumbnailImage;
-    private List<String> imgUrls;
+    private String imgUrls;
 }

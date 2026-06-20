@@ -20,12 +20,7 @@ public class Products {
     private String category;
     private String thumbnailImage;
     private int discount;
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(
-            name = "product_images",
-            joinColumns = @JoinColumn(name = "product_id")
-    )
-    @Column(name = "image_url")
-    private List<String> imgUrls;
+    @Column(columnDefinition = "TEXT")
+    private String imageUrls;
 
 }

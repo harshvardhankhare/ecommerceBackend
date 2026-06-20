@@ -23,7 +23,7 @@ public class ProductService {
         p.setProduct_price(pr.getPrice().intValue());
         p.setSlug(pr.getSlug());
         p.setThumbnailImage(pr.getThumbnailImage());
-        p.setImgUrls(pr.getImgUrls());
+        p.setImageUrls(pr.getImgUrls());
         p.setProduct_desc(pr.getDesc());
 
         productRepository.save(p);
@@ -69,7 +69,7 @@ public void deleteProduct(Long Id){
         product.setCategory(reqProduct.getCategory());
         product.setDiscount(reqProduct.getDiscount());
         product.setThumbnailImage(reqProduct.getThumbnailImage());
-        product.setImgUrls(reqProduct.getImgUrls());
+        product.setImageUrls(reqProduct.getImgUrls());
 
         return productRepository.save(product);
     }
