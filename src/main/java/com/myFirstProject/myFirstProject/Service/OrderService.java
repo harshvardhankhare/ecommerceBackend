@@ -49,11 +49,9 @@ public class OrderService {
 
             // INTERNAL relation only
             orderItem.setOrder(order);
-
-            // ✅ SNAPSHOT DATA
             orderItem.setProductId(cartItem.getProduct().getProductId());
             orderItem.setProductName(cartItem.getProduct().getProduct_name());
-            orderItem.setProductImage(cartItem.getProduct().getImgLink());
+            orderItem.setProductImage(cartItem.getProduct().getThumbnailImage());
             orderItem.setProductPrice(cartItem.getProduct().getProduct_price());
 
             orderItem.setQuantity(cartItem.getQuantity());
