@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/public")
@@ -40,8 +41,14 @@ public class PublicController {
         return "WORKING";
     }
     @GetMapping("/count")
-    public long count() {
-        return productService.getAllProducts().size();
+    public Object count() {
+        Products p = productService.getAllProducts().get(0);
+
+        return Map.of(
+                "id", p.getProductId(),
+                "name", p.getProduct_name(),
+                "price", p.getProduct_price()
+        );
     }
 
 }

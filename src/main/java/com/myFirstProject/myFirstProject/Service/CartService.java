@@ -22,7 +22,7 @@ public class CartService {
     @Autowired
     private ProductRepository productRepository;
 
-    public void addItemTOCart(Long userId, int prodcutId,int quantity){
+    public void addItemTOCart(Long userId, Long prodcutId,int quantity){
               Users user = userRepository.findById(userId).orElseThrow(()-> new RuntimeException("User Not Found"));
 
               Cart cart = user.getCart();

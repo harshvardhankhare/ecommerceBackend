@@ -30,7 +30,7 @@ public class ProductService {
 
     }
 
-    public Optional<Products> getPrductById(int id){
+    public Optional<Products> getPrductById(Long id){
      Optional<Products> product = productRepository.findById(id);
 
      if(product.isPresent()){
@@ -44,11 +44,11 @@ public class ProductService {
      return   productRepository.findAll();
     }
 
-    public Products getProductById(int Id){
+    public Products getProductById(Long Id){
         return productRepository.findById(Id).orElseThrow(()-> new RuntimeException(" Product Not Found"));
     }
 
-public void deleteProduct(int Id){
+public void deleteProduct(Long Id){
         Products product = productRepository.findById(Id).orElseThrow(()-> new RuntimeException("Product Not Found"));
         productRepository.delete(product);
 }
@@ -58,7 +58,7 @@ public void deleteProduct(int Id){
         return productRepository.searchByProductName(q);
     }
     @PutMapping("/update/{id}")
-    public Products updateProduct(ProductRequestDto reqProduct, int id) {
+    public Products updateProduct(ProductRequestDto reqProduct, Long id) {
 
         Products product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product Not Found"));

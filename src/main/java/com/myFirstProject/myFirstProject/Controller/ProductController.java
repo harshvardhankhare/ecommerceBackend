@@ -24,7 +24,7 @@ public class ProductController {
     }
 
     @GetMapping("/product/{id}")
-    public Optional<Products> getProductById(@PathVariable int id){
+    public Optional<Products> getProductById(@PathVariable Long id){
         return productService.getPrductById(id);
     }
 
@@ -40,7 +40,7 @@ public class ProductController {
         }
 
           @DeleteMapping("/delete/{id}")
-    public String deleteProduct(@PathVariable int id){
+    public String deleteProduct(@PathVariable Long id){
          productService.deleteProduct(id);
               System.out.println(" #33333333333333 Delete product  #####################");
         return "Product delete successfully";
