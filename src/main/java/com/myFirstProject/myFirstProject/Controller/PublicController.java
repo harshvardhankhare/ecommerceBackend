@@ -16,8 +16,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PublicController {
 
-    private ProductService productService;
-    private CategoryService categoryService;
+    private final ProductService productService;
+    private final CategoryService categoryService;
 
 
     @GetMapping("/getAll")

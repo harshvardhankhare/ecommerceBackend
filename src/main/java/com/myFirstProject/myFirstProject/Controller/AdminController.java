@@ -16,9 +16,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminController {
 
-private ProductService productService;
-private OrderService orderService;
-private CategoryService categoryService;
+private final ProductService productService;
+private final OrderService orderService;
+private final CategoryService categoryService;
 
     @PostMapping("/add")
     public String addProduct(@RequestBody ProductRequestDto pr){

@@ -16,9 +16,6 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-
-    
-
     @PostMapping("/add")
     public  String addProduct(@RequestBody Products p){
 
