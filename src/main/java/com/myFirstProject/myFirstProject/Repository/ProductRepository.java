@@ -16,4 +16,5 @@ public interface ProductRepository extends JpaRepository<Products,Long> {
         WHERE LOWER(p.title) LIKE LOWER(CONCAT('%', :q, '%'))
     """)
     List<Products> searchByTitle(@Param("q") String q);
+    List<Products> findTop8ByOrderByCreatedAtDesc();
 }

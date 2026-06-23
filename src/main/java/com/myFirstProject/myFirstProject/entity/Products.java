@@ -1,9 +1,9 @@
 package com.myFirstProject.myFirstProject.entity;
-
 import jakarta.persistence.*;
 import lombok.Data;
-import java.util.List;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 @Entity
 @Data
 @Table(name = "products")
@@ -28,6 +28,9 @@ public class Products {
     private String returnPolicy;
     private String material;
     private String careInstructions;
+    @Column(updatable = false)
+    @CreationTimestamp
+    private LocalDateTime createdAt;
     @Column(columnDefinition = "TEXT")
     private String tags;
     @Column(columnDefinition = "TEXT")

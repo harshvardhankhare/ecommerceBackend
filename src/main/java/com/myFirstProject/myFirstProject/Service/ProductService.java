@@ -1,7 +1,9 @@
 package com.myFirstProject.myFirstProject.Service;
 
 import com.myFirstProject.myFirstProject.DTO.ProductRequestDto;
+import com.myFirstProject.myFirstProject.DTO.ProductResponseDTO;
 import com.myFirstProject.myFirstProject.Repository.ProductRepository;
+import com.myFirstProject.myFirstProject.Repository.RatingRepository;
 import com.myFirstProject.myFirstProject.entity.Products;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ import java.util.Optional;
 public class ProductService {
     @Autowired
     ProductRepository productRepository;
+    @Autowired
+    RatingRepository ratingRepository;
 
     public Products insertProduct(ProductRequestDto pr) {
 
@@ -50,22 +54,25 @@ public class ProductService {
         return p;
     }
 
-    public Optional<Products> getPrductById(Long id){
-     Optional<Products> product = productRepository.findById(id);
 
-     if(product.isPresent()){
-         return product;
-     }else {
-         return null;
-     }
+    public ProductResponseDTO getProductDetailsById(Long id) {
+
+        Products product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        Double averageRating = ratingRepository.getAverageRating(id);
+
+        Integer totalRatings = ratingRepository.findByProductProductId(id).size();
+
+        return new ProductResponseDTO(
+                product,
+                averageRating,
+                totalRatings
+        );
     }
 
     public List<Products> getAllProducts(){
      return   productRepository.findAll();
-    }
-
-    public Products getProductById(Long Id){
-        return productRepository.findById(Id).orElseThrow(()-> new RuntimeException(" Product Not Found"));
     }
 
 public void deleteProduct(Long Id){
@@ -113,5 +120,8 @@ public void deleteProduct(Long Id){
         return productRepository.save(product);
     }
 
+    public List<Products> getNewArrivals() {
+        return productRepository.findTop8ByOrderByCreatedAtDesc();
+    }
 
 }
