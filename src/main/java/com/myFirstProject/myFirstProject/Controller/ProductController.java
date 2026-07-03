@@ -7,13 +7,14 @@ import com.myFirstProject.myFirstProject.Service.RatingService;
 import com.myFirstProject.myFirstProject.entity.Products;
 import com.myFirstProject.myFirstProject.entity.Rating;
 import com.myFirstProject.myFirstProject.entity.Users;
+import com.myFirstProject.myFirstProject.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @CrossOrigin(origins = "*")
@@ -34,35 +35,69 @@ public class ProductController {
     }
 
     @GetMapping("/product/{id}")
-    public ProductResponseDTO getProductById(@PathVariable Long id){
-        return productService.getProductDetailsById(id);
+    public ResponseEntity<ApiResponse<ProductResponseDTO>> getProductById(
+            @PathVariable Long id){
+
+        ProductResponseDTO product = productService.getProductDetailsById(id);
+
+        ApiResponse<ProductResponseDTO> response =
+                ApiResponse.<ProductResponseDTO>builder()
+                        .success(true)
+                        .message("Product fetched successfully")
+                        .data(product)
+                        .build();
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/products")
-        public List<Products> getAll(){
-        return productService.getAllProducts();
-        }
+    public ResponseEntity<ApiResponse<List<ProductResponseDTO>>> getAll(){
+
+        List<ProductResponseDTO> products = productService.getAllProducts();
+
+        return ResponseEntity.ok(
+                ApiResponse.<List<ProductResponseDTO>>builder()
+                        .success(true)
+                        .message("Products fetched successfully")
+                        .data(products)
+                        .build()
+        );
+    }
 
         @GetMapping("/search")
         public List<Products> search(@RequestParam("q") String query) {
 
             return productService.getSearchProduct(query);
         }
-        @DeleteMapping("/delete/{id}")
-    public String deleteProduct(@PathVariable Long id){
-         productService.deleteProduct(id);
-              System.out.println(" #33333333333333 Delete product  #####################");
-        return "Product delete successfully";
-          }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<ApiResponse<Void>> deleteProduct(@PathVariable Long id){
+        productService.deleteProduct(id);
+        return ResponseEntity.ok(
+                ApiResponse.<Void>builder()
+                        .success(true)
+                        .message("Product deleted successfully")
+                        .build()
+        );
+    }
     @GetMapping("/new-arrivals")
     public ResponseEntity<List<Products>> getNewArrivals() {
         return ResponseEntity.ok(productService.getNewArrivals());
     }
     @PostMapping("/create-rating")
-    public Rating createNewRating( @RequestBody RatingRequest request, @AuthenticationPrincipal Users user){
-        System.out.println("REQUEST = " + request);
-        System.out.println("USER = " + user);
-      return ratingService.createRating(request,user);
+    public ResponseEntity<ApiResponse<RatingResponse>> createRating(
+            @RequestBody RatingRequest request,
+            @AuthenticationPrincipal Users user){
+
+        RatingResponse rating = ratingService.createRating(request,user);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(
+                        ApiResponse.<RatingResponse>builder()
+                                .success(true)
+                                .message("Rating created successfully")
+                                .data(rating)
+                                .build()
+                );
     }
     @GetMapping("/{productId}/ratings")
     public List<RatingResponse> getRatings(@PathVariable Long productId) {

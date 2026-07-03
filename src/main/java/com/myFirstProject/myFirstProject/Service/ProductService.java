@@ -71,8 +71,21 @@ public class ProductService {
         );
     }
 
-    public List<Products> getAllProducts(){
-     return   productRepository.findAll();
+    public List<ProductResponseDTO> getAllProducts() {
+
+        List<Products> products = productRepository.findAll();
+
+        return products.stream()
+                .map(product -> {
+                    Double averageRating = ratingRepository.getAverageRating(product.getProductId());
+                    Integer totalRatings = ratingRepository.findByProductProductId(product.getProductId()).size();
+                    return new ProductResponseDTO(
+                            product,
+                            averageRating,
+                            totalRatings
+                    );
+                })
+                .toList();
     }
 
 public void deleteProduct(Long Id){

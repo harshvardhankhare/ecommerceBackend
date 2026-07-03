@@ -19,11 +19,10 @@ public class RatingService {
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
 
-    public Rating createRating(RatingRequest request, Users user) {
+    public RatingResponse createRating(RatingRequest request, Users user) {
 
         Products product = productRepository.findById(request.getProductId())
                 .orElseThrow(() -> new RuntimeException("Product not found"));
-
         boolean alreadyRated =
                 ratingRepository.existsByUserAndProduct(user, product);
 
@@ -32,13 +31,20 @@ public class RatingService {
         }
 
         Rating rating = new Rating();
-
         rating.setRating(request.getRating());
         rating.setDescription(request.getDescription());
         rating.setUser(user);
         rating.setProduct(product);
-
-        return ratingRepository.save(rating);
+        Rating savedRating = ratingRepository.save(rating);
+        RatingResponse response = new RatingResponse();
+        response.setId(savedRating.getId());
+        response.setRating(savedRating.getRating());
+        response.setDescription(savedRating.getDescription());
+        response.setUserId(savedRating.getUser().getId());
+        response.setUserName(savedRating.getUser().getName());
+        response.setProductId(savedRating.getProduct().getProductId());
+        response.setCreatedAt(savedRating.getCreatedAt());
+        return response;
     }
 
     public List<RatingResponse> getProductRatings(Long productId) {
