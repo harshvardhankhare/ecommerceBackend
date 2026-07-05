@@ -28,6 +28,6 @@ public class Cart {
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> items;
 
-    private int totalPrice;
+    private double totalPrice;
 }
 

@@ -1,6 +1,7 @@
 package com.myFirstProject.myFirstProject.Controller;
 
 import com.myFirstProject.myFirstProject.DTO.CartRequest;
+import com.myFirstProject.myFirstProject.DTO.CartResponseDTO;
 import com.myFirstProject.myFirstProject.DTO.MeResponse;
 import com.myFirstProject.myFirstProject.DTO.OrderRequest;
 import com.myFirstProject.myFirstProject.Service.CartService;
@@ -9,7 +10,10 @@ import com.myFirstProject.myFirstProject.Service.UserService;
 import com.myFirstProject.myFirstProject.entity.Cart;
 import com.myFirstProject.myFirstProject.entity.Order;
 import com.myFirstProject.myFirstProject.entity.Users;
+import com.myFirstProject.myFirstProject.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -31,30 +35,70 @@ public class UserController {
  private OrderService orderService;
 
     @PostMapping("/cart")
-public String addCartItem(@RequestBody CartRequest cartRequest,@AuthenticationPrincipal Users user){
-        cartService.addItemTOCart(user.getId(),cartRequest.getProductId(),cartRequest.getQuantity());
-        return "added successfully";
-}
+    public ResponseEntity<ApiResponse<CartResponseDTO>> addCartItem(
+            @RequestBody CartRequest cartRequest,
+            @AuthenticationPrincipal Users user) {
+
+        CartResponseDTO cart = cartService.addItemToCart(
+                user.getId(),
+                cartRequest.getProductId(),
+                cartRequest.getQuantity()
+        );
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new ApiResponse<>(
+                        true,
+                        "Item added to cart successfully",
+                        cart
+                ));
+    }
     @PutMapping("/increase/{cartItemId}")
-    public Cart increase(
+    public ResponseEntity<ApiResponse<CartResponseDTO>> increase(
             @PathVariable Long cartItemId,
-            @AuthenticationPrincipal Users user
-    ) {
-        return cartService.increaseQuantity(user.getId(), cartItemId);
+            @AuthenticationPrincipal Users user) {
+
+        CartResponseDTO cart =
+                cartService.increaseQuantity(user.getId(), cartItemId);
+
+        return ResponseEntity.ok(
+                new ApiResponse<>(
+                        true,
+                        "Quantity increased successfully",
+                        cart
+                )
+        );
     }
     @PutMapping("/decrease/{cartItemId}")
-    public Cart decrease(
+    public ResponseEntity<ApiResponse<CartResponseDTO>> decrease(
             @PathVariable Long cartItemId,
-            @AuthenticationPrincipal Users user
-    ) {
-        return cartService.decreaseQuantity(user.getId(), cartItemId);
+            @AuthenticationPrincipal Users user) {
+
+        CartResponseDTO cart =
+                cartService.decreaseQuantity(user.getId(), cartItemId);
+
+        return ResponseEntity.ok(
+                new ApiResponse<>(
+                        true,
+                        "Quantity decreased successfully",
+                        cart
+                )
+        );
     }
     @DeleteMapping("/remove/{cartItemId}")
-    public Cart removeItem(
+    public ResponseEntity<ApiResponse<CartResponseDTO>> removeItem(
             @PathVariable Long cartItemId,
-            @AuthenticationPrincipal Users user
-    ) {
-        return cartService.removeItem(user.getId(), cartItemId);
+            @AuthenticationPrincipal Users user) {
+
+        CartResponseDTO cart =
+                cartService.removeItem(user.getId(), cartItemId);
+
+        return ResponseEntity.ok(
+                new ApiResponse<>(
+                        true,
+                        "Item removed successfully",
+                        cart
+                )
+        );
     }
 
 
@@ -69,10 +113,18 @@ public MeResponse getUser(@AuthenticationPrincipal Users user){
 
 
     @GetMapping("/{userId}")
-    public Cart getCart(@PathVariable Long userId) {
+    public ResponseEntity<ApiResponse<CartResponseDTO>> getCart(
+            @PathVariable Long userId) {
 
-     return cartService.getOrCreateCart(userId);
+        CartResponseDTO cart = cartService.getOrCreateCart(userId);
 
+        return ResponseEntity.ok(
+                new ApiResponse<>(
+                        true,
+                        "Cart fetched successfully",
+                        cart
+                )
+        );
     }
     @PostMapping("/place")
     public Order placeOrder(
